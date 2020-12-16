@@ -107,4 +107,37 @@
 
     headerPhonePopup();
 
+    function popupVideo() {
+      const btnOpen = document.querySelector('.video__btn');
+      const btnClose = document.querySelector('.popup-video__gamburger');
+      const popupVideo = document.querySelector('.popup-video');
+      const video = document.querySelector('.popup-video__item');
+      const body = document.querySelector('.body');
+
+      btnOpen.addEventListener('click', () => {
+        popupVideo.classList.add('opened');
+        body.classList.add('opened');
+      });
+
+      btnClose.addEventListener('click', () => {
+        popupVideo.classList.remove('opened');
+        body.classList.remove('opened');
+        video.pause();
+      });
+
+    }
+
+    popupVideo();
+
+    function aboutMoreText() {
+      const btn = document.querySelector('.about__btn');
+      const text = document.querySelector('.about__hidden-text');
+
+      btn.addEventListener('click', () => {
+        btn.classList.add('clicked');
+        text.classList.remove('hidden');
+      });
+    }
+
+    aboutMoreText();
   });
