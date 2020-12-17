@@ -1,45 +1,63 @@
   document.addEventListener("DOMContentLoaded", () => {
-      function gabmurgerFunc(gamburderSelector, navigationSelector, itemsSelector) {
+    function gabmurgerFunc(gamburderSelector, navigationSelector, itemsSelector) {
 
-    const gamburger = document.querySelectorAll(gamburderSelector);
-    const navigation = document.querySelector(navigationSelector);
-    const items = document.querySelectorAll(itemsSelector);
-    const header = document.querySelector('.header');
-    const body = document.querySelector('.body');
+      const gamburger = document.querySelectorAll(gamburderSelector);
+      const navigation = document.querySelector(navigationSelector);
+      const items = document.querySelectorAll(itemsSelector);
+      const header = document.querySelector('.header');
+      const body = document.querySelector('.body');
 
-    items.forEach(item =>{
-      item.addEventListener('click', () => {
-        gamburger.forEach(item => {
-          item.classList.remove('opened');
-        });
-        
-        header.classList.remove('opened');
-
-        body.classList.remove('opened');
-
-        menuOpen = false;
-        navigation.classList.remove('opened');
-      });
-    });
-
-    let menuOpen = false;
-    gamburger.forEach(item => {
-      item.addEventListener('click', () => {
-        if (!menuOpen) {
-
-          if (header.clientWidth < 600) {
-            header.classList.add('opened')
-          }
-
-          body.classList.add('opened');
-
+      items.forEach(item => {
+        item.addEventListener('click', () => {
           gamburger.forEach(item => {
-            item.classList.add('opened');
+            item.classList.remove('opened');
           });
 
-          menuOpen = true;
-          navigation.classList.add('opened');
-        } else {
+          header.classList.remove('opened');
+
+          body.classList.remove('opened');
+
+          menuOpen = false;
+          navigation.classList.remove('opened');
+        });
+      });
+
+      let menuOpen = false;
+      gamburger.forEach(item => {
+        item.addEventListener('click', () => {
+          if (!menuOpen) {
+
+            if (header.clientWidth < 600) {
+              header.classList.add('opened')
+            }
+
+            body.classList.add('opened');
+
+            gamburger.forEach(item => {
+              item.classList.add('opened');
+            });
+
+            menuOpen = true;
+            navigation.classList.add('opened');
+          } else {
+            header.classList.remove('opened')
+
+            body.classList.remove('opened');
+
+            gamburger.forEach(item => {
+              item.classList.remove('opened');
+            });
+
+            menuOpen = false;
+            navigation.classList.remove('opened');
+          }
+        });
+      });
+
+      navigation.addEventListener('click', (e) => {
+        const el = e.target;
+
+        if (el.classList.contains('popup-menu')) {
           header.classList.remove('opened')
 
           body.classList.remove('opened');
@@ -52,26 +70,8 @@
           navigation.classList.remove('opened');
         }
       });
-    });
-
-    navigation.addEventListener('click', (e) => {
-      const el = e.target;
-
-      if (el.classList.contains('popup-menu')) {
-        header.classList.remove('opened')
-
-        body.classList.remove('opened');
-
-        gamburger.forEach(item => {
-          item.classList.remove('opened');
-        });
-
-        menuOpen = false;
-        navigation.classList.remove('opened');
-      }
-    });
-  }
-  gabmurgerFunc(".gamburger", ".popup-menu", ".popup-menu-close");;
+    }
+    gabmurgerFunc(".gamburger", ".popup-menu", ".popup-menu-close");;
 
     function headerPhonePopup() {
       const link = document.querySelector('.header-top__phones');
@@ -82,7 +82,7 @@
         if (!menuIsOpen) {
           link.classList.add('opened');
           menuIsOpen = true;
-        }else {
+        } else {
           link.classList.remove('opened');
           menuIsOpen = false;
         }
@@ -123,6 +123,14 @@
         popupVideo.classList.remove('opened');
         body.classList.remove('opened');
         video.pause();
+      });
+
+      popupVideo.addEventListener('click', (e) => {
+        if (e.target == popupVideo) {
+          popupVideo.classList.remove('opened');
+          body.classList.remove('opened');
+          video.pause();
+        }
       });
 
     }
@@ -272,6 +280,13 @@
           popup.classList.add('opened');
           body.classList.add('opened');
         });
+      });
+
+      popup.addEventListener('click', (e) => {
+        if (e.target !== popupImg) {
+          popup.classList.remove('opened');
+          body.classList.remove('opened');
+        }
       });
 
       btnClose.addEventListener('click', () => {
